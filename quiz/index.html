@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Match com Lílian</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+    :root {
+      --blue: #1456b8;
+      --deep-blue: #102b80;
+      --pink: #ee1b85;
+      --white: #fff;
+      --ink: #14216f;
+      --soft: rgba(255,255,255,.18);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+    body {
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      background: #080f3d;
+      color: var(--white);
+      font-family: Poppins, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button { font: inherit; }
+    .game {
+      position: relative;
+      width: min(420px, 100vw, calc(100vh * .8));
+      height: min(525px, 100vh, calc(100vw * 1.25));
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      isolation: isolate;
+      background: #17277e;
+      box-shadow: 0 20px 60px rgba(0,0,0,.38);
+    }
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+    }
+    .screen.active { display: flex; }
+
+    .cover {
+      cursor: pointer;
+      background: url('assets/capa.jpg') center / cover no-repeat;
+    }
+    .cover:focus-visible { outline: 4px solid #fff; outline-offset: -7px; }
+
+    .internal {
+      flex-direction: column;
+      padding: 5.5% 7.2% 6%;
+      background: url('assets/fundo.jpg') center / cover no-repeat;
+    }
+    .internal::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(10,45,139,.08), rgba(20,12,92,.16));
+      pointer-events: none;
+    }
+    .brand {
+      display: block;
+      width: 44%;
+      max-width: 170px;
+      margin: 0 auto 2.5%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.18));
+    }
+    .eyebrow {
+      margin: 0 0 1.5%;
+      color: #ffd5ed;
+      font-size: clamp(9px, 2.1vw, 11px);
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    h1, h2, p { margin-top: 0; }
+    .intro-title {
+      max-width: 92%;
+      margin: 0 auto 4%;
+      color: #fff;
+      font-size: clamp(21px, 5.6vw, 30px);
+      line-height: 1.06;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      text-align: center;
+    }
+    .intro-title span { color: #ff51ad; }
+    .type-box {
+      min-height: 27%;
+      display: flex;
+      align-items: center;
+      padding: 5.5% 6.5%;
+      border: 1px solid rgba(255,255,255,.85);
+      border-radius: 18px;
+      background: rgba(19,41,136,.42);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .type-box p {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(12px, 3.05vw, 15px);
+      line-height: 1.52;
+      font-weight: 500;
+    }
+    .type-box p::after {
+      content: '▋';
+      display: inline-block;
+      margin-left: 2px;
+      color: #ff49a7;
+      animation: blink .75s steps(1) infinite;
+    }
+    .type-box.done p::after { display: none; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .intro-note {
+      margin: 4% auto 0;
+      color: rgba(255,255,255,.78);
+      font-size: clamp(10px, 2.45vw, 12px);
+      line-height: 1.35;
+      text-align: center;
+    }
+    .cta {
+      width: 100%;
+      margin-top: auto;
+      padding: 3.8% 5%;
+      border: 0;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--blue);
+      font-size: clamp(13px, 3.2vw, 15px);
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+    .cta:hover { transform: translateY(-2px); }
+    .cta:disabled { opacity: .38; cursor: default; transform: none; }
+    .minor {
+      margin: 2.5% 0 0;
+      color: rgba(255,255,255,.72);
+      font-size: clamp(9px, 2.1vw, 11px);
+      text-align: center;
+    }
+
+    .quiz-head { flex: 0 0 auto; }
+    .quiz-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 2.5%;
+      color: rgba(255,255,255,.86);
+      font-size: clamp(9px, 2.2vw, 11px);
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .axis-tag { color: #ffd2eb; }
+    .progress {
+      height: 5px;
+      overflow: hidden;
+      margin-bottom: 5.5%;
+      border-radius: 99px;
+      background: rgba(255,255,255,.25);
+    }
+    .progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #ff2d9b, #ff88cb);
+      transition: width .25s ease;
+    }
+    .question-title {
+      margin: 0 0 5%;
+      color: #fff;
+      font-size: clamp(18px, 4.8vw, 24px);
+      line-height: 1.13;
+      font-weight: 800;
+      letter-spacing: -.035em;
+    }
+    .options {
+      display: grid;
+      gap: 2.15%;
+      min-height: 0;
+    }
+    .option {
+      width: 100%;
+      padding: 2.75% 4%;
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: 12px;
+      background: rgba(15,47,143,.35);
+      color: #fff;
+      font-size: clamp(11px, 2.75vw, 13px);
+      line-height: 1.24;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease, transform .15s ease;
+    }
+    .option:hover { transform: translateX(2px); background: rgba(255,255,255,.13); }
+    .option.selected {
+      border: 2px solid #ff43a5;
+      padding: calc(2.75% - 1px) calc(4% - 1px);
+      background: rgba(241,25,132,.34);
+    }
+    .controls {
+      margin-top: auto;
+      padding-top: 4.5%;
+    }
+    .controls .cta { margin-top: 0; }
+
+    .question-view[hidden], .comment-view[hidden] { display: none !important; }
+    .comment-view { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+    .comment-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0 5%;
+    }
+    .comment-brand img {
+      display: block;
+      width: 56%;
+      max-width: 190px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.16));
+    }
+    .comment-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 39%;
+      padding: 7%;
+      border: 1px solid rgba(255,255,255,.82);
+      border-radius: 18px;
+      background: rgba(12,43,134,.48);
+    }
+    .comment-card h2 {
+      margin: 0 0 4%;
+      color: #ff5ab2;
+      font-size: clamp(17px, 4.5vw, 22px);
+      line-height: 1.05;
+      font-weight: 900;
+    }
+    .comment-card p {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(12px, 2.9vw, 14px);
+      line-height: 1.47;
+      font-weight: 500;
+    }
+    .comment-view .controls { margin-top: auto; }
+
+    .result-screen { justify-content: flex-start; }
+    .result-title { margin: 0 0 1.5%; font-size: clamp(20px, 5.2vw, 27px); line-height: 1.08; font-weight: 900; text-align: center; }
+    .result-title span { color: #ff58ad; }
+    .result-visual {
+      display: grid;
+      place-items: center;
+      width: 34vw;
+      max-width: 140px;
+      aspect-ratio: 1;
+      margin: 6% auto 7%;
+    }
+    .result-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      object-fit: contain;
+      opacity: 0;
+      transform: scale(.96);
+    }
+    .result-visual img.visible { animation: resultImageIn .9s ease forwards; }
+    @keyframes resultImageIn { to { opacity: 1; transform: scale(1); } }
+    .result-copy-wrap {
+      min-height: 0;
+      padding: 3.2% 4.5%;
+      border-radius: 15px;
+      background: rgba(12,43,134,.42);
+    }
+    .result-copy { margin: 0; font-size: clamp(10px, 2.45vw, 12px); line-height: 1.4; }
+    .result-copy::after {
+      content: '▋';
+      display: inline-block;
+      margin-left: 2px;
+      color: #ff49a7;
+      animation: blink .75s steps(1) infinite;
+    }
+    .result-copy.done::after { display: none; }
+    .result-note { margin: 2.2% 0 0; font-size: clamp(9px, 2.1vw, 10.5px); line-height: 1.35; text-align: center; color: rgba(255,255,255,.82); }
+    .result-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      gap: 3%;
+      margin-top: auto;
+      padding-top: 2.5%;
+    }
+    .result-action {
+      border: 0;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 2px;
+      text-align: center;
+    }
+    .result-action .action-icon {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 50%;
+      font-size: 15px;
+      font-weight: 800;
+    }
+    .result-action.share .action-icon { width: 28px; height: 28px; font-size: 15px; background: transparent; }
+    .result-action.proposals { text-decoration: none; }
+    .result-action:hover .action-icon { background: rgba(255,255,255,.16); }
+
+    @media (min-width: 700px) {
+      .game { border-radius: 22px; }
+    }
+    @supports (height: 100dvh) {
+      .game {
+        width: min(420px, 100vw, calc(100dvh * .8));
+        height: min(525px, 100dvh, calc(100vw * 1.25));
+      }
+    }
+    @media (max-height: 560px) {
+      .game {
+        width: min(420px, calc(100vh * .8));
+        height: min(525px, 100vh, calc(100vw * 1.25));
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="game" aria-label="Match com Lílian">
+    <section id="cover" class="screen cover active" tabindex="0" role="button" aria-label="Começar o Match com Lílian"></section>
+
+    <section id="instructions" class="screen internal" aria-live="polite">
+      <img class="brand" src="assets/match-com-lilian-logo.png" alt="Match com Lílian">
+      <p class="eyebrow">11 perguntas, 11 compromissos</p>
+      <h1 class="intro-title">Suas prioridades <span>combinam</span> com as propostas de Lílian?</h1>
+      <div id="typeBox" class="type-box"><p id="typeText"></p></div>
+      <p class="intro-note">Não há resposta certa ou errada. A ideia é comparar prioridades.</p>
+      <button id="startQuiz" class="cta" disabled>Continuar</button>
+    </section>
+
+    <section id="quiz" class="screen internal" aria-live="polite">
+      <div class="quiz-head">
+        <div class="quiz-meta"><span id="axis" class="axis-tag"></span><span id="counter"></span></div>
+        <div class="progress"><span id="progressBar"></span></div>
+      </div>
+      <div id="questionView" class="question-view">
+        <h2 id="question" class="question-title"></h2>
+        <div id="options" class="options"></div>
+      </div>
+      <div id="commentView" class="comment-view" hidden>
+        <p class="comment-brand"><img src="assets/logo-lilian.png" alt="Lílian França"></p>
+        <div class="comment-card">
+          <h2 id="commentTheme"></h2>
+          <p id="comment"></p>
+        </div>
+      </div>
+      <div class="controls"><button id="action" class="cta" disabled>Escolher uma resposta</button></div>
+    </section>
+
+    <section id="result" class="screen internal result-screen" aria-live="polite">
+      <p class="eyebrow">fim do match</p>
+      <h1 id="resultTitle" class="result-title"></h1>
+      <div class="result-visual"><img id="resultImage" src="" alt=""></div>
+      <div class="result-copy-wrap"><p id="resultCopy" class="result-copy"></p></div>
+      <p class="result-note">Esse quiz é um convite para somar suas ideias às nossas propostas!</p>
+      <div class="result-actions" aria-label="Ações do resultado">
+        <button id="restart" class="result-action" type="button" aria-label="Refazer quiz" title="Refazer quiz"><span class="action-icon" aria-hidden="true">↻</span></button>
+        <button id="share" class="result-action share" type="button" aria-label="Compartilhar este match" title="Compartilhar"><span class="action-icon" aria-hidden="true">↗</span></button>
+        <a id="proposalLink" class="result-action proposals" href="https://lilianfranca.com.br/lilian_franca_11_propostas.pdf" download aria-label="Baixar propostas" title="Baixar propostas"><span class="action-icon" aria-hidden="true">⇩</span></a>
+        <button id="exit" class="result-action" type="button" aria-label="Sair do quiz" title="Sair"><span class="action-icon" aria-hidden="true">×</span></button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const icon = name => `assets/icone_${name}_simbolo.png`;
+    const questions = [
+      { axis:'Mulheres', theme:'Formação com oportunidade', q:'O que mais ajuda mulheres a conquistar trabalho e renda?', opts:[['Nenhuma ação pública.',0],['Oferecer apenas cursos.',2],['Formação, apoio e oportunidades.',4],['Focar só em empreender.',2],['Depende de cada região.',3]], fact:'Cursos fazem mais diferença quando também abrem portas para oportunidades reais, com orientação, prática e conexão com empresas.', icon:icon('mulheres') },
+      { axis:'Mulheres', theme:'Proteção acessível', q:'Na proteção às mulheres, a acessibilidade deve ser…', opts:[['Algo opcional.',2],['Pensada desde o início.',4],['Só dos serviços especializados.',1],['Uma preocupação para depois.',3],['Decisão de cada município.',1]], fact:'A proteção precisa funcionar para todas as mulheres. Isso inclui Libras, comunicação clara e canais acessíveis desde o começo.', icon:icon('mulheres') },
+      { axis:'Inclusão', theme:'Informação em um só lugar', q:'O que facilita a vida de famílias de pessoas com TEA e PCD?', opts:[['Procurar vários órgãos.',1],['Criar mais atendimento presencial.',2],['Ter um ponto único e acessível.',4],['Depender só de associações.',2],['Procurar apenas a área da saúde.',1]], fact:'Reunir direitos, serviços e caminhos de atendimento em um lugar claro pode facilitar bastante a vida de quem precisa de orientação.', icon:icon('inclusao') },
+      { axis:'Inclusão', theme:'Escola pronta para incluir', q:'Como saber se a inclusão está funcionando na escola?', opts:[['Apenas pelo número de leis.',1],['Pela impressão das pessoas.',2],['Acompanhando resultados por região.',4],['Somente pelo número de matrículas.',2],['Sem comparar realidades diferentes.',1]], fact:'Acompanhar formação, apoio especializado e recursos de acessibilidade ajuda a mostrar onde há avanços e onde ainda falta suporte.', icon:icon('inclusao') },
+      { axis:'Causa animal', theme:'Saúde integrada', q:'Como a causa animal se relaciona com a saúde das pessoas?', opts:[['Uma compete com a outra.',0],['O animal deve vir primeiro.',2],['As duas precisam caminhar juntas.',4],['São assuntos separados.',1],['Se encontram em alguns temas.',3]], fact:'A saúde das pessoas, dos animais e do ambiente está ligada. Cuidar de uma dessas áreas também pode gerar benefícios para as outras.', icon:icon('causa_animal') },
+      { axis:'Causa animal', theme:'Recurso com transparência', q:'O que deve orientar recursos destinados à causa animal?', opts:[['Quem pedir primeiro.',1],['Somente as prefeituras.',1],['Critérios, planejamento e prestação de contas.',4],['A escolha de cada parlamentar.',0],['O mesmo valor para cada município.',2]], fact:'Quando o recurso é público, é importante deixar claro para onde ele vai, por que foi destinado e como será utilizado.', icon:icon('causa_animal') },
+      { axis:'Desenvolvimento', theme:'Patrimônio vivo', q:'Como o patrimônio histórico pode contribuir com uma cidade?', opts:[['Ser preservado sem novo uso.',2],['Ter menos regras de proteção.',1],['Ser preservado e gerar renda local.',4],['Ter importância só em cidades históricas.',1],['Concentrar o turismo em poucos lugares.',2]], fact:'Preservar o patrimônio e criar oportunidades podem caminhar juntos, fortalecendo o turismo, os pequenos negócios e a renda local.', icon:icon('patrimonio') },
+      { axis:'Desenvolvimento', theme:'Distritos conectados', q:'Ter internet em distritos e áreas rurais deve ser visto como…', opts:[['Apenas um serviço privado.',0],['Algo para depois de outras prioridades.',2],['Parte da infraestrutura da região.',4],['Uma questão apenas da educação.',2],['Uma decisão de cada território.',3]], fact:'A internet interfere no estudo, no trabalho, nos serviços e nos negócios. Por isso, a conectividade também precisa entrar no planejamento público.', icon:icon('regiao_territorio') },
+      { axis:'Segurança e mobilidade', theme:'Estradas com informação', q:'O que ajuda a população a acompanhar uma obra atrasada?', opts:[['Saber apenas o valor da obra.',2],['Ter prazos e responsáveis claros.',4],['Cobrar sempre do município.',0],['Deixar o assunto só para os técnicos.',1],['Cobrar sem saber quem é responsável.',1]], fact:'Quando responsável, etapa da obra e prazo são públicos, fica mais fácil acompanhar o andamento e cobrar de quem realmente pode responder.', icon:icon('seguranca') },
+      { axis:'Segurança e mobilidade', theme:'Segurança que recupera', q:'Além da punição, o que pode ajudar alguém a voltar à sociedade?', opts:[['Apenas aumentar a pena.',0],['Trabalho sem nenhum apoio.',2],['Responsabilização, estudo e trabalho.',4],['Pensar apenas em reduzir custos.',1],['Oferecer oportunidades só em alguns casos.',3]], fact:'Segurança também envolve cumprir a pena e criar caminhos de estudo, qualificação e trabalho que diminuam a chance de voltar ao crime.', icon:icon('seguranca') },
+      { axis:'Participação', theme:'Minas começa nos municípios', q:'Quando um problema depende de outro órgão, o que um mandato deve fazer?', opts:[['Dizer que não é sua responsabilidade.',0],['Prometer que vai resolver.',1],['Encaminhar, acompanhar e dar retorno.',4],['Apenas encaminhar o pedido.',2],['Articular sem acompanhar depois.',2]], fact:'Nem todo problema depende do mesmo órgão. O papel do mandato também é identificar quem pode agir, encaminhar a demanda e acompanhar o retorno.', icon:icon('participacao_popular') }
+    ];
+    const screens = [...document.querySelectorAll('.screen')];
+    const byId = id => document.getElementById(id);
+    const cover = byId('cover');
+    const instructions = byId('instructions');
+    const quiz = byId('quiz');
+    const result = byId('result');
+    let current = 0;
+    let selected = null;
+    let answers = [];
+    let typingTimer;
+
+    function show(screen) {
+      screens.forEach(item => item.classList.toggle('active', item === screen));
+      screen.focus?.({preventScroll:true});
+    }
+
+    const instructionText = 'Em cada tema, escolha a opção que mais combina com o que você pensa. Depois, veja como Lílian trata esse assunto. No final, descubra onde existem mais pontos em comum.';
+    function typeInstructions() {
+      clearInterval(typingTimer);
+      const text = byId('typeText');
+      const box = byId('typeBox');
+      const button = byId('startQuiz');
+      text.textContent = '';
+      box.classList.remove('done');
+      button.disabled = true;
+      let position = 0;
+      typingTimer = setInterval(() => {
+        text.textContent = instructionText.slice(0, position++);
+        if (position > instructionText.length) {
+          clearInterval(typingTimer);
+          box.classList.add('done');
+          button.disabled = false;
+        }
+      }, 18);
+    }
+
+    function renderQuestion() {
+      const item = questions[current];
+      selected = null;
+      byId('axis').textContent = item.axis;
+      byId('counter').textContent = `${String(current + 1).padStart(2,'0')} / ${questions.length}`;
+      byId('progressBar').style.width = `${((current + 1) / questions.length) * 100}%`;
+      byId('question').textContent = item.q;
+      byId('options').innerHTML = item.opts.map((option, index) => `<button class="option" type="button" data-index="${index}">${option[0]}</button>`).join('');
+      byId('questionView').hidden = false;
+      byId('commentView').hidden = true;
+      byId('action').disabled = true;
+      byId('action').textContent = 'Escolher uma resposta';
+      document.querySelectorAll('.option').forEach(button => button.addEventListener('click', () => {
+        document.querySelectorAll('.option').forEach(other => other.classList.remove('selected'));
+        button.classList.add('selected');
+        selected = Number(button.dataset.index);
+        byId('action').disabled = false;
+        byId('action').textContent = 'Continuar';
+      }));
+    }
+
+    function showComment() {
+      const item = questions[current];
+      answers[current] = item.opts[selected][1];
+      byId('questionView').hidden = true;
+      byId('commentView').hidden = false;
+      byId('commentTheme').textContent = item.theme;
+      byId('comment').textContent = item.fact;
+      byId('action').disabled = false;
+      byId('action').textContent = current === questions.length - 1 ? 'Ver resultado' : 'Próxima pergunta';
+    }
+
+    function typeResultText(text) {
+      clearInterval(typingTimer);
+      const target = byId('resultCopy');
+      target.textContent = '';
+      target.classList.remove('done');
+      const totalDuration = 7000;
+      const step = Math.max(16, totalDuration / Math.max(1, text.length));
+      let position = 0;
+      typingTimer = setInterval(() => {
+        position += 1;
+        target.textContent = text.slice(0, position);
+        if (position >= text.length) {
+          clearInterval(typingTimer);
+          target.classList.add('done');
+        }
+      }, step);
+    }
+
+    function renderResult() {
+      const score = Math.round((answers.reduce((sum, value) => sum + value, 0) / (questions.length * 4)) * 100);
+      const profiles = score >= 75 ? {
+        title:'Nosso caminho tem muito em comum!',
+        image:'assets/resultado-muito.png',
+        alt:'Lílian sorrindo com símbolo de confirmação',
+        copy:'Suas respostas se aproximam bastante dos compromissos apresentados por Lilian. Em muitos dos temas, vocês enxergam prioridades de forma parecida. É muito bom perceber quando ideias e caminhos se encontram.'
+      } : score >= 50 ? {
+        title:'Temos bons pontos de encontro!',
+        image:'assets/resultado-medio.png',
+        alt:'Lílian fazendo um gesto de convite',
+        copy:'Suas respostas mostram que existem várias prioridades em comum com os compromissos apresentados por Lilian, além de alguns temas vistos de maneiras diferentes. Conhecer essas aproximações e diferenças também faz parte de uma escolha consciente.'
+      } : {
+        title:'Nem todo caminho precisa ser igual',
+        image:'assets/resultado-pouco.png',
+        alt:'Lílian em gesto de reflexão entre dois símbolos',
+        copy:'Suas respostas mostram diferenças importantes em relação a alguns dos compromissos apresentados por Lilian. E tudo bem: conhecer essas diferenças com clareza também ajuda você a entender melhor quais propostas representam as suas prioridades.'
+      };
+
+      byId('resultTitle').textContent = profiles.title;
+      const resultImage = byId('resultImage');
+      resultImage.classList.remove('visible');
+      resultImage.src = profiles.image;
+      resultImage.alt = profiles.alt;
+      show(result);
+      requestAnimationFrame(() => requestAnimationFrame(() => resultImage.classList.add('visible')));
+      typeResultText(profiles.copy);
+    }
+
+    cover.addEventListener('click', () => { show(instructions); typeInstructions(); });
+    cover.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); cover.click(); } });
+    byId('startQuiz').addEventListener('click', () => { current = 0; answers = []; show(quiz); renderQuestion(); });
+    byId('action').addEventListener('click', () => {
+      if (byId('commentView').hidden) showComment();
+      else if (current < questions.length - 1) { current += 1; renderQuestion(); }
+      else renderResult();
+    });
+    byId('restart').addEventListener('click', () => {
+      clearInterval(typingTimer);
+      show(cover);
+    });
+
+    byId('share').addEventListener('click', async () => {
+      const shareData = {
+        title: 'Match com Lílian',
+        text: 'Faça o Match com Lílian e compare suas prioridades com as propostas.',
+        url: window.location.href
+      };
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+        } else if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(window.location.href);
+        } else {
+          const temp = document.createElement('textarea');
+          temp.value = window.location.href;
+          temp.style.position = 'fixed';
+          temp.style.opacity = '0';
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand('copy');
+          temp.remove();
+        }
+      } catch (error) {
+        if (error?.name !== 'AbortError') {
+        }
+      }
+    });
+
+    byId('exit').addEventListener('click', () => {
+      const openedByScript = !!window.opener;
+      if (openedByScript) {
+        window.close();
+        setTimeout(() => { window.location.href = 'https://lilianfranca.com.br/'; }, 150);
+      } else {
+        window.location.href = 'https://lilianfranca.com.br/';
+      }
+    });
+  </script>
+</body>
+</html>
