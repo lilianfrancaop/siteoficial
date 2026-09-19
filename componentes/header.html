@@ -1,0 +1,17 @@
+<header class="header"><style>
+.header .brand img{display:block;width:132px;height:auto;object-fit:contain}
+.header .nav{font-size:.88rem;gap:12px}
+.header .nav>a,.header .nav-dropdown>summary{display:inline-flex;align-items:center;min-height:42px;padding:8px 12px;border:1px solid transparent;border-radius:14px;text-decoration:none;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.header .nav>a:hover,.header .nav-dropdown>summary:hover,.header .nav-dropdown[open]>summary{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.42);transform:translateY(-1px)}
+.header .nav-dropdown{position:relative}
+.header .nav-dropdown>summary{list-style:none;color:inherit;font-weight:700}
+.header .nav-dropdown>summary::-webkit-details-marker{display:none}
+.header .nav-dropdown>summary::after{content:'▾';margin-left:7px;font-size:.7em}
+.header .nav-submenu{position:absolute;top:calc(100% + 8px);left:0;z-index:100;display:grid;min-width:220px;padding:8px;background:#062f68;border:1px solid rgba(255,255,255,.42);border-radius:16px;box-shadow:0 16px 36px rgba(0,0,0,.3)}
+.header .nav-submenu a{display:block;padding:11px 13px;border-radius:11px;color:#fff;text-decoration:none;white-space:nowrap}
+.header .nav-submenu a:hover{background:rgba(233,58,151,.8)}
+.header .nav-cta{background:#e93a97!important;border-color:#e93a97!important}
+.header .nav-cta:hover{background:#ff63b2!important;border-color:#ff63b2!important}
+@media(max-width:900px){.header .brand img{width:112px}.header .nav{font-size:.80rem;gap:4px}.header .nav>a,.header .nav-dropdown>summary{padding:7px 8px}}
+@media(max-width:760px){.header .brand img{width:120px}.header .nav{font-size:1rem}.header .nav-dropdown{width:100%}.header .nav-dropdown>summary{width:100%;justify-content:space-between}.header .nav-submenu{position:static;min-width:0;margin:4px 0 6px;padding:4px;background:rgba(0,0,0,.16);border:0;box-shadow:none}.header .nav-submenu a{padding:10px 14px}.header .nav>a,.header .nav-dropdown>summary{min-height:44px}}
+</style><div class="wrap head"><a aria-label="Lílian França 11000" class="brand" href="#inicio"><img alt="Lílian França 11000 — Deputada Estadual" class="brand-logo" decoding="async" src="assets/logo-lilian-franca-11000.webp"></a><nav class="nav" id="nav"><a href="#quem">Quem é Lílian</a><details class="nav-dropdown"><summary>Atuação</summary><div class="nav-submenu"><a href="#resultados">Resultados</a><a href="#compromissos">11 compromissos</a><a href="#parceria">Articulação</a></div></details><a href="#agenda">Agenda</a><a href="#transparencia">Transparência</a><a download="lilian_franca_11_propostas.pdf" href="lilian_franca_11_propostas.pdf">E-book</a><a class="nav-cta" href="https://wa.me/553199614310?text=Ol%C3%A1.%20Acabo%20de%20visitar%20o%20seu%20site%20e%20queria%20entender%20melhor%20suas%20propostas" rel="noopener" target="_blank">Contato</a></nav><button aria-label="Abrir menu" class="menu" id="menuBtn">☰</button></div></header>

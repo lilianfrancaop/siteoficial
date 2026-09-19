@@ -1,0 +1,66 @@
+<section aria-labelledby="agenda-title" class="section agenda-section" id="agenda">
+  <style>
+    .agenda-section {
+      background: linear-gradient(135deg, #082f62 0%, #0A4E96 47%, #7e2a92 100%);
+      color: #fff;
+    }
+
+    .agenda-section .agenda-head {
+      max-width: 760px;
+      margin: 0 auto 32px;
+      text-align: center;
+    }
+
+    .agenda-section .agenda-head .kicker { color: #ffd8ec; }
+    .agenda-section .agenda-head .title,
+    .agenda-section .agenda-head .lead { color: #fff; }
+
+    .agenda-section .agenda-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .agenda-section .agenda-panel {
+      min-width: 0;
+      height: 600px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(255, 255, 255, .28);
+      border-radius: 20px;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
+    }
+
+    .agenda-section .agenda-panel iframe {
+      display: block;
+      width: 100%;
+      height: 600px;
+      border: 0;
+    }
+
+    @media (max-width: 760px) {
+      .agenda-section .agenda-grid { grid-template-columns: 1fr; gap: 18px; }
+      .agenda-section .agenda-panel,
+      .agenda-section .agenda-panel iframe { height: 600px; }
+    }
+  </style>
+
+  <div class="wrap">
+    <div class="section-head agenda-head">
+      <p class="kicker">Acompanhe de perto</p>
+      <h2 class="title" id="agenda-title">Compromissos de <span class="accent">campanha</span></h2>
+      <p class="lead">Confira a agenda pública e acompanhe as últimas publicações de Lílian França.</p>
+    </div>
+
+    <div class="agenda-grid">
+      <div class="agenda-panel" aria-label="Agenda de campanha de Lílian França">
+        <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;ctz=America%2FSao_Paulo&amp;showPrint=0&amp;src=bGlsaWFuZnJhbmNhb3BAZ21haWwuY29t&amp;src=NDdiM2FmZjkwYzgzMTUxNjFiNWZiYmVhODkwZGViMGQ0NDY5M2QwYTQ3MWU4ZDY5YTc4ODg0M2MwNjUwYzcxNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=cHQuYnJhemlsaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%233f51b5&amp;color=%23b39ddb&amp;color=%230b8043" title="Agenda de campanha de Lílian França" loading="lazy"></iframe>
+      </div>
+
+      <div class="agenda-panel" aria-label="Últimas publicações no Instagram de Lílian França">
+        <iframe src="https://widgets.sociablekit.com/instagram-feed/iframe/25715060" frameborder="0" width="100%" height="600px" title="Últimas publicações do Instagram de Lílian França" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
