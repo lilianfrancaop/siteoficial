@@ -12,25 +12,92 @@
 .header .nav-submenu a:hover{background:rgba(233,58,151,.8)}
 .header .nav-cta{background:#e93a97!important;border-color:#e93a97!important}
 .header .nav-cta:hover{background:#ff63b2!important;border-color:#ff63b2!important}
-.header .mobile-menu-toggle{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;overflow:hidden}
-.mobile-header-spacer{display:none}
 @media(max-width:900px){.header .brand img{width:112px}.header .nav{font-size:.80rem;gap:4px}.header .nav>a,.header .nav-dropdown>summary{padding:7px 8px}}
+@media(max-width:760px){.header .brand img{width:120px}.header .nav{font-size:1rem}.header .nav-dropdown{width:100%}.header .nav-dropdown>summary{width:100%;justify-content:space-between}.header .nav-submenu{position:static;min-width:0;margin:4px 0 6px;padding:4px;background:rgba(0,0,0,.16);border:0;box-shadow:none}.header .nav-submenu a{padding:10px 14px}.header .nav>a,.header .nav-dropdown>summary{min-height:44px}}
+
+
+/* FIX MOBILE ISOLADO — não altera seções, imagens ou desktop */
 @media(max-width:760px){
-.mobile-header-spacer{display:block;height:72px}
-html{scroll-padding-top:88px}
-.header{position:fixed!important;top:0;left:0;right:0;width:100%;z-index:2147483000;box-sizing:border-box}
-.header .head{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:72px}
-.header .brand{display:block;flex:0 0 auto;line-height:0}
-.header .brand img{width:120px;max-width:100%;height:auto}
-.header .menu{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 44px;width:44px;height:44px;margin-left:auto;padding:0;border:1px solid rgba(255,255,255,.35);border-radius:12px;background:rgba(255,255,255,.12);color:#fff;font:inherit;font-size:1.45rem;line-height:1;cursor:pointer}
-.header .menu:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.header .nav{display:none!important;position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:1000;flex-direction:column;align-items:stretch;gap:6px;width:100%;max-height:calc(100vh - 96px);overflow-y:auto;padding:12px;margin:0;background:#062f68;border:1px solid rgba(255,255,255,.28);border-radius:16px;box-shadow:0 16px 36px rgba(0,0,0,.3);font-size:1rem}
-.header .mobile-menu-toggle:checked + .nav{display:flex!important}
-.header .nav>a,.header .nav-dropdown>summary{width:100%;min-height:46px;box-sizing:border-box;justify-content:flex-start;padding:10px 12px}
-.header .nav-dropdown{width:100%}
-.header .nav-dropdown>summary{justify-content:space-between}
-.header .nav-submenu{position:static;min-width:0;margin:4px 0 6px;padding:4px;background:rgba(0,0,0,.16);border:0;box-shadow:none}
-.header .nav-submenu a{padding:11px 14px;white-space:normal}
-.header .nav-cta{justify-content:center!important;margin-top:2px}
+  body{padding-top:68px!important}
+  .header{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+    z-index:99999!important;
+  }
+  .header .head{
+    position:relative;
+    height:68px!important;
+    min-height:68px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .header .brand{flex:0 0 auto;line-height:0}
+  .header .brand img{width:120px;height:auto}
+  .header .menu{
+    display:inline-flex!important;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 42px;
+    width:42px;
+    height:42px;
+    margin-left:auto;
+    padding:0;
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:12px;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    font-size:1.35rem;
+    cursor:pointer;
+  }
+  .header .nav{
+    display:none!important;
+    position:absolute;
+    top:68px;
+    left:14px;
+    right:14px;
+    width:auto;
+    max-height:calc(100dvh - 84px);
+    overflow-y:auto;
+    flex-direction:column;
+    align-items:stretch;
+    gap:5px;
+    padding:12px;
+    margin:0;
+    background:#062f68;
+    border:1px solid rgba(255,255,255,.24);
+    border-radius:16px;
+    box-shadow:0 16px 36px rgba(0,0,0,.30);
+    font-size:.95rem;
+    z-index:100000;
+  }
+  .header.mobile-menu-active .nav,
+  .header .nav.open{display:flex!important}
+  .header .nav>a,
+  .header .nav-dropdown>summary{
+    width:100%;
+    min-height:44px;
+    box-sizing:border-box;
+    justify-content:flex-start;
+    padding:10px 12px;
+  }
+  .header .nav-dropdown{width:100%}
+  .header .nav-dropdown>summary{justify-content:space-between}
+  .header .nav-submenu{
+    position:static;
+    min-width:0;
+    margin:4px 0 6px;
+    padding:4px;
+    background:rgba(0,0,0,.16);
+    border:0;
+    box-shadow:none;
+  }
+  .header .nav-submenu a{padding:10px 14px;white-space:normal}
+  .header .nav-cta{justify-content:center!important;margin-top:2px}
 }
-</style><div class="wrap head"><a aria-label="Lílian França 11000" class="brand" href="#inicio"><img alt="Lílian França 11000 — Deputada Estadual" class="brand-logo" decoding="async" src="assets/logo-lilian-franca-11000.webp"></a><input class="mobile-menu-toggle" id="mobileMenuToggle" type="checkbox" aria-label="Abrir ou fechar menu"><nav class="nav" id="nav"><a href="#quem">Quem é Lílian</a><details class="nav-dropdown"><summary>Atuação</summary><div class="nav-submenu"><a href="#resultados">Resultados</a><a href="#compromissos">11 compromissos</a><a href="#parceria">Articulação</a></div></details><a href="#agenda">Agenda</a><a href="#transparencia">Transparência</a><a download="lilian_franca_11_propostas.pdf" href="lilian_franca_11_propostas.pdf">E-book</a><a class="nav-cta" href="https://wa.me/553199614310?text=Ol%C3%A1.%20Acabo%20de%20visitar%20o%20seu%20site%20e%20queria%20entender%20melhor%20suas%20propostas" rel="noopener" target="_blank">Contato</a></nav><label aria-controls="nav" aria-label="Abrir ou fechar menu" class="menu" for="mobileMenuToggle" role="button" tabindex="0">☰</label></div></header><div class="mobile-header-spacer" aria-hidden="true"></div>
+
+</style><div class="wrap head"><a aria-label="Lílian França 11000" class="brand" href="#inicio"><img alt="Lílian França 11000 — Deputada Estadual" class="brand-logo" decoding="async" src="assets/logo-lilian-franca-11000.webp"></a><nav class="nav" id="nav"><a href="#quem">Quem é Lílian</a><details class="nav-dropdown"><summary>Atuação</summary><div class="nav-submenu"><a href="#resultados">Resultados</a><a href="#compromissos">11 compromissos</a><a href="#parceria">Articulação</a></div></details><a href="#agenda">Agenda</a><a href="#transparencia">Transparência</a><a download="lilian_franca_11_propostas.pdf" href="lilian_franca_11_propostas.pdf">E-book</a><a class="nav-cta" href="https://wa.me/553199614310?text=Ol%C3%A1.%20Acabo%20de%20visitar%20o%20seu%20site%20e%20queria%20entender%20melhor%20suas%20propostas" rel="noopener" target="_blank">Contato</a></nav><button aria-label="Abrir menu" aria-expanded="false" aria-controls="nav" class="menu" id="menuBtn" type="button" onclick="var h=this.closest('.header');var o=h.classList.toggle('mobile-menu-active');this.setAttribute('aria-expanded',o?'true':'false')">☰</button></div></header><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3d8b6839b4c535f',t:'MTc4OTgyMjE5Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
