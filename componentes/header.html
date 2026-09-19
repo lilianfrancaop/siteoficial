@@ -13,9 +13,12 @@
 .header .nav-cta{background:#e93a97!important;border-color:#e93a97!important}
 .header .nav-cta:hover{background:#ff63b2!important;border-color:#ff63b2!important}
 .header .mobile-menu-toggle{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;overflow:hidden}
+.mobile-header-spacer{display:none}
 @media(max-width:900px){.header .brand img{width:112px}.header .nav{font-size:.80rem;gap:4px}.header .nav>a,.header .nav-dropdown>summary{padding:7px 8px}}
 @media(max-width:760px){
-.header{position:sticky;top:0;z-index:9999}
+.mobile-header-spacer{display:block;height:72px}
+html{scroll-padding-top:88px}
+.header{position:fixed!important;top:0;left:0;right:0;width:100%;z-index:2147483000;box-sizing:border-box}
 .header .head{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:72px}
 .header .brand{display:block;flex:0 0 auto;line-height:0}
 .header .brand img{width:120px;max-width:100%;height:auto}
@@ -30,4 +33,4 @@
 .header .nav-submenu a{padding:11px 14px;white-space:normal}
 .header .nav-cta{justify-content:center!important;margin-top:2px}
 }
-</style><div class="wrap head"><a aria-label="Lílian França 11000" class="brand" href="#inicio"><img alt="Lílian França 11000 — Deputada Estadual" class="brand-logo" decoding="async" src="assets/logo-lilian-franca-11000.webp"></a><input class="mobile-menu-toggle" id="mobileMenuToggle" type="checkbox" aria-label="Abrir ou fechar menu"><nav class="nav" id="nav"><a href="#quem">Quem é Lílian</a><details class="nav-dropdown"><summary>Atuação</summary><div class="nav-submenu"><a href="#resultados">Resultados</a><a href="#compromissos">11 compromissos</a><a href="#parceria">Articulação</a></div></details><a href="#agenda">Agenda</a><a href="#transparencia">Transparência</a><a download="lilian_franca_11_propostas.pdf" href="lilian_franca_11_propostas.pdf">E-book</a><a class="nav-cta" href="https://wa.me/553199614310?text=Ol%C3%A1.%20Acabo%20de%20visitar%20o%20seu%20site%20e%20queria%20entender%20melhor%20suas%20propostas" rel="noopener" target="_blank">Contato</a></nav><label aria-controls="nav" aria-label="Abrir ou fechar menu" class="menu" for="mobileMenuToggle" role="button" tabindex="0">☰</label></div></header>
+</style><div class="wrap head"><a aria-label="Lílian França 11000" class="brand" href="#inicio"><img alt="Lílian França 11000 — Deputada Estadual" class="brand-logo" decoding="async" src="assets/logo-lilian-franca-11000.webp"></a><input class="mobile-menu-toggle" id="mobileMenuToggle" type="checkbox" aria-label="Abrir ou fechar menu"><nav class="nav" id="nav"><a href="#quem">Quem é Lílian</a><details class="nav-dropdown"><summary>Atuação</summary><div class="nav-submenu"><a href="#resultados">Resultados</a><a href="#compromissos">11 compromissos</a><a href="#parceria">Articulação</a></div></details><a href="#agenda">Agenda</a><a href="#transparencia">Transparência</a><a download="lilian_franca_11_propostas.pdf" href="lilian_franca_11_propostas.pdf">E-book</a><a class="nav-cta" href="https://wa.me/553199614310?text=Ol%C3%A1.%20Acabo%20de%20visitar%20o%20seu%20site%20e%20queria%20entender%20melhor%20suas%20propostas" rel="noopener" target="_blank">Contato</a></nav><label aria-controls="nav" aria-label="Abrir ou fechar menu" class="menu" for="mobileMenuToggle" role="button" tabindex="0">☰</label></div></header><div class="mobile-header-spacer" aria-hidden="true"></div>
