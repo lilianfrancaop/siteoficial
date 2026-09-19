@@ -1,0 +1,103 @@
+<header class="header"><style>
+.header .brand img{display:block;width:132px;height:auto;object-fit:contain}
+.header .nav{font-size:.88rem;gap:12px}
+.header .nav>a,.header .nav-dropdown>summary{display:inline-flex;align-items:center;min-height:42px;padding:8px 12px;border:1px solid transparent;border-radius:14px;text-decoration:none;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.header .nav>a:hover,.header .nav-dropdown>summary:hover,.header .nav-dropdown[open]>summary{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.42);transform:translateY(-1px)}
+.header .nav-dropdown{position:relative}
+.header .nav-dropdown>summary{list-style:none;color:inherit;font-weight:700}
+.header .nav-dropdown>summary::-webkit-details-marker{display:none}
+.header .nav-dropdown>summary::after{content:'▾';margin-left:7px;font-size:.7em}
+.header .nav-submenu{position:absolute;top:calc(100% + 8px);left:0;z-index:100;display:grid;min-width:220px;padding:8px;background:#062f68;border:1px solid rgba(255,255,255,.42);border-radius:16px;box-shadow:0 16px 36px rgba(0,0,0,.3)}
+.header .nav-submenu a{display:block;padding:11px 13px;border-radius:11px;color:#fff;text-decoration:none;white-space:nowrap}
+.header .nav-submenu a:hover{background:rgba(233,58,151,.8)}
+.header .nav-cta{background:#e93a97!important;border-color:#e93a97!important}
+.header .nav-cta:hover{background:#ff63b2!important;border-color:#ff63b2!important}
+@media(max-width:900px){.header .brand img{width:112px}.header .nav{font-size:.80rem;gap:4px}.header .nav>a,.header .nav-dropdown>summary{padding:7px 8px}}
+@media(max-width:760px){.header .brand img{width:120px}.header .nav{font-size:1rem}.header .nav-dropdown{width:100%}.header .nav-dropdown>summary{width:100%;justify-content:space-between}.header .nav-submenu{position:static;min-width:0;margin:4px 0 6px;padding:4px;background:rgba(0,0,0,.16);border:0;box-shadow:none}.header .nav-submenu a{padding:10px 14px}.header .nav>a,.header .nav-dropdown>summary{min-height:44px}}
+
+
+/* FIX MOBILE ISOLADO — não altera seções, imagens ou desktop */
+@media(max-width:760px){
+  body{padding-top:68px!important}
+  .header{
+    position:fixed!important;
+    top:0!important;
+    left:0!important;
+    right:0!important;
+    width:100%!important;
+    z-index:99999!important;
+  }
+  .header .head{
+    position:relative;
+    height:68px!important;
+    min-height:68px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .header .brand{flex:0 0 auto;line-height:0}
+  .header .brand img{width:120px;height:auto}
+  .header .menu{
+    display:inline-flex!important;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 42px;
+    width:42px;
+    height:42px;
+    margin-left:auto;
+    padding:0;
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:12px;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    font-size:1.35rem;
+    cursor:pointer;
+  }
+  .header .nav{
+    display:none!important;
+    position:absolute;
+    top:68px;
+    left:14px;
+    right:14px;
+    width:auto;
+    max-height:calc(100dvh - 84px);
+    overflow-y:auto;
+    flex-direction:column;
+    align-items:stretch;
+    gap:5px;
+    padding:12px;
+    margin:0;
+    background:#062f68;
+    border:1px solid rgba(255,255,255,.24);
+    border-radius:16px;
+    box-shadow:0 16px 36px rgba(0,0,0,.30);
+    font-size:.95rem;
+    z-index:100000;
+  }
+  .header.mobile-menu-active .nav,
+  .header .nav.open{display:flex!important}
+  .header .nav>a,
+  .header .nav-dropdown>summary{
+    width:100%;
+    min-height:44px;
+    box-sizing:border-box;
+    justify-content:flex-start;
+    padding:10px 12px;
+  }
+  .header .nav-dropdown{width:100%}
+  .header .nav-dropdown>summary{justify-content:space-between}
+  .header .nav-submenu{
+    position:static;
+    min-width:0;
+    margin:4px 0 6px;
+    padding:4px;
+    background:rgba(0,0,0,.16);
+    border:0;
+    box-shadow:none;
+  }
+  .header .nav-submenu a{padding:10px 14px;white-space:normal}
+  .header .nav-cta{justify-content:center!important;margin-top:2px}
+}
+
+</style><div class="wrap head"><a aria-label="Lílian França 11000" class="brand" href="#inicio"><img alt="Lílian França 11000 — Deputada Estadual" class="brand-logo" decoding="async" src="assets/logo-lilian-franca-11000.webp"></a><nav class="nav" id="nav"><a href="#quem">Quem é Lílian</a><details class="nav-dropdown"><summary>Atuação</summary><div class="nav-submenu"><a href="#resultados">Resultados</a><a href="#compromissos">11 compromissos</a><a href="#parceria">Articulação</a></div></details><a href="#agenda">Agenda</a><a href="#transparencia">Transparência</a><a download="lilian_franca_11_propostas.pdf" href="lilian_franca_11_propostas.pdf">E-book</a><a class="nav-cta" href="https://wa.me/553199614310?text=Ol%C3%A1.%20Acabo%20de%20visitar%20o%20seu%20site%20e%20queria%20entender%20melhor%20suas%20propostas" rel="noopener" target="_blank">Contato</a></nav><button aria-label="Abrir menu" aria-expanded="false" aria-controls="nav" class="menu" id="menuBtn" type="button" onclick="var h=this.closest('.header');var o=h.classList.toggle('mobile-menu-active');this.setAttribute('aria-expanded',o?'true':'false')">☰</button></div></header><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3d8b6839b4c535f',t:'MTc4OTgyMjE5Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
